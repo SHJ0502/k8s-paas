@@ -1,73 +1,54 @@
-# React + TypeScript + Vite
+K8s PaaS Dashboard
+Kubernetes 클러스터의 상태를 모니터링하고 관리하기 위한 PaaS 대시보드 프로젝트입니다. Spring Boot 기반의 백엔드와 React 기반의 프론트엔드로 구성되어 있습니다.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+1. 프로젝트 구조
+   backend-java/: Spring Boot 기반 REST API 서버
 
-Currently, two official plugins are available:
+frontend/: React (Vite, TypeScript) 기반 웹 인터페이스
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+.gitattributes / .gitignore: 멀티 모듈 프로젝트 관리 설정
 
-## React Compiler
+2. 기술 스택
+   Backend
+   Java 17 / Spring Boot 3.x
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Spring Data JPA
 
-## Expanding the ESLint configuration
+Gradle
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+H2 Database (Runtime)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Frontend
+React / TypeScript
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Vite
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+pnpm (Package Manager)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Axios (API Communication)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+3. 실행 방법
+   Backend 실행
+   Bash
+   cd backend-java
+   ./gradlew bootRun
+   API Server: http://localhost:8080
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Frontend 실행
+Bash
+cd frontend
+pnpm install
+pnpm dev
+Web Interface: http://localhost:5173
+
+4. 주요 기능
+   Kubernetes 클러스터 리스트 조회 및 상태 확인
+
+실시간 클러스터 데이터 연동 (API)
+
+반응형 대시보드 UI
+
+5. 환경 설정
+   백엔드의 application.properties를 통해 DB 및 서버 포트 설정을 변경할 수 있습니다.
+
+프론트엔드의 src/api/clusterApi.ts에서 API 엔드포인트 주소를 설정합니다.
